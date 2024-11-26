@@ -1,0 +1,8 @@
+.command {
+  cursor: pointer;
+}
+
+.command,
+.directory {
+  cursor: pointer;
+}
