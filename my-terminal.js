@@ -15,21 +15,21 @@ const formatter = new Intl.ListFormat("en", {
 const root = "~";
 let cwd = root;
 
-const directory = {
+const directories = {
   education: [
     "",
     "<pink>Education</pink>",
-    '*<a href="https://www.logan.edu/">Logan University</a>2022-2024<pink>Bachelor of Science in Human Biology</pink>',
-    '*<a href="https://www.appacademy.io/">App Academy</a>May 2024 - December 2024<pink>Certification in Software Engineering</pink>',
+    '*<a href="https://www.logan.edu/"> Logan University </a> 2022-2024 <pink> Bachelor of Science in Human Biology </pink>',
+    '*<a href="https://www.appacademy.io/"> App Academy </a> May 2024 - December 2024 <pink> Certification in Software Engineering </pink>',
     "",
   ],
 
   certifications: [
     "",
     "<pink>Certification</pink>",
-    '<a href="https://www.freecodecamp.org/certification/fccb432e555-2c68-4769-a9b0-f219a69331bc/responsive-web-design">Responsive Web Design</a>',
-    '<a href="https://www.freecodecamp.org/certification/fccb432e555-2c68-4769-a9b0-f219a69331bc/javascript-algorithms-and-data-structures-v8">JavaScript Algorithms and Data Structures</a>',
-    '<a href="https://www.freecodecamp.org/certification/fccb432e555-2c68-4769-a9b0-f219a69331bc/front-end-development-libraries">Front-End Development Libraries</a>',
+    '<a href="https://www.freecodecamp.org/certification/fccb432e555-2c68-4769-a9b0-f219a69331bc/responsive-web-design"> Responsive Web Design </a>',
+    '<a href="https://www.freecodecamp.org/certification/fccb432e555-2c68-4769-a9b0-f219a69331bc/javascript-algorithms-and-data-structures-v8"> JavaScript Algorithms and Data Structures </a>',
+    '<a href="https://www.freecodecamp.org/certification/fccb432e555-2c68-4769-a9b0-f219a69331bc/front-end-development-libraries"> Front-End Development Libraries </a>',
     "",
   ],
 
@@ -42,26 +42,43 @@ const directory = {
       ["Markdown Previewer", "https://github.com/MynnTapp/Markdown-Previewer", "a markdown previewer to turn code into markdown"],
       ["25 + 5 timer", "https://github.com/MynnTapp/my-25-5-timer", "a kind of pomodoro timer that is used for studying"],
       ["My Keyboard Drum set", "https://github.com/MynnTapp/Drum-Machine", "A drum set you can play with your keyboard"],
-    ].map(([name, url, description]) => {
-      return `<a href="${url}">${name}</a> &mdash; <pink>${description}</pink>`;
+    ].map(([name, url, description = ""]) => {
+      return `<a href="${url}"> ${name} </a> &mdash; <pink> ${description} </pink>`;
     }),
   ].flat(),
   skills: [
-    "",
-    "<pink>Coding Languages</pink>",
-    ["Python", "Javascript", "SQL", "HTML", "CSS"].map(([name]) => `<pink>${name}</pink>`),
-    "",
-    "<pink>Libraries</pink>",
-    ["React", "Redux", "Postgres SQL", "JQuery", "Bootstrap", "SASS", "Flask"].map(([library]) => `<pink>${library}</pink>`),
-    "",
-    "<pink>Tools</pink>",
-    ["Linux", "Git"].map(([tool]) => `<pink>${tool}</pink>`),
-    "",
+   [["Python", "Javascript", "SQL", "HTML", "CSS"],
+    ["React", "Redux", "Postgres SQL", "JQuery", "Bootstrap", "SASS", "Flask"],
+    ["Linux", "Git"],
+  ].map(([languages, libraries, tools], i) => {
+  return `Coding languages I know are: <pink>${languages}</pink>`
+  }),
   ].flat(),
+  resume: [`file:///C:/Users/Desmy/Downloads/Desmynn_Tappin_Resume%20(1).pdf`].map((resume, i) => {
+    return `This is my resume: <a href="${resume}"><pink>${resume}</pink></a>`
+  }),
 
-  resume: ["", `<a href='file:///C:/Users/Desmy/Downloads/Desmynn_Tappin_Resume%20(1).pdf'></a>`],
+  aboutMe:
+    ["Welcome to my personal portfolio! I am a dedicated and driven software engineer, transitioning from a path in physician science to a career where I can channel my problem-solving skills into developing innovative software solutions. This portfolio showcases my journey, skills, and projects, reflecting my passion for tackling complex challenges and creating meaningful impact through code. My diverse background enables me to approach problem-solving with unique perspectives, and I aim to leverage my skills to drive positive change across industries—healthcare and beyond.Feel free to explore my projects and connect with me as I continue to grow in this exciting field!"].map((aboutMe) => {return `<pink>${aboutMe}</pink>`}),
+
+  contact_Info: ["501-697-6028", "DesmynnMJC@gmail.com", "https://www.linkedin.com/in/desmynn-j-tappin-975822233/", "https://github.com/MynnTapp"].map(([phoneNumber, email, LinkedIn, Github]) => {
+    return `<pink>my phoneNumber is: ${phoneNumber}\n my email is: ${email}\n
+    my LinkedIn: ${LinkedIn}\n my GitHub: ${Github} <pink>`;
+  }),
 };
 
+const url = "https://v2.jokeapi.dev/joke/Programming";
+
+
+//ISSUE/////////////////////////////////////////////////////////////////////////////
+function print_dirs() {
+  term.echo(
+    Object.keys(directories).map((dir) => {
+        return `<blue class="directory">${dir}</blue>`;
+      }).join("\n")
+  );
+}
+//////////////////////////////////////////////////////////////////
 const commands = {
   help() {
     term.echo(`Available commands: ${help}`);
@@ -115,6 +132,40 @@ const commands = {
       this.echo(directories[dir].join("\n"));
     }
   },
+
+  async joke() {
+    const res = await fetch(url);
+    const data = await res.json();
+    if (data.type == "twopart") {
+      this.animation(async () => {
+        await this.echo(`Q: ${data.setup}`, {
+          delay: 50,
+          typing: true,
+        });
+        await this.echo(`A: ${data.delivery}`, {
+          delay: 50,
+          typing: true,
+        });
+      });
+    } else if (data.type === "single") {
+      this.echo(data.joke, {
+        delay: 50,
+        typing: true,
+      });
+    }
+  },
+
+  credits() {
+    return [
+      "",
+      "<white>Used libraries:</white>",
+      '* <a href="https://terminal.jcubic.pl">jQuery Terminal</a>',
+      '* <a href="https://github.com/patorjk/figlet.js/">Figlet.js</a>',
+      '* <a href="https://github.com/jcubic/isomorphic-lolcat">Isomorphic Lolcat</a>',
+      '* <a href="https://jokeapi.dev/">Joke API</a>',
+      "",
+    ].join("\n");
+  },
 };
 
 const command_list = Object.keys(commands);
@@ -123,17 +174,14 @@ const term = $("body").terminal(commands, {
   greetings: false,
   checkArity: false,
   completion(string) {
-    // in every function we can use `this` to reference term object
     const cmd = this.get_command();
-    // we process the command to extract the command name
-    // and the rest of the command (the arguments as one string)
     const { name, rest } = $.terminal.parse_command(cmd);
     if (["cd", "ls"].includes(name)) {
       if (rest.startsWith("~/")) {
-        return dirs.map((dir) => `~/${dir}`);
+        return dir.map((dir) => `~/${dir}`);
       }
       if (cwd === root) {
-        return dirs;
+        return dir;
       }
     }
     return Object.keys(commands);
@@ -173,36 +221,24 @@ function rand(max) {
 }
 
 function rainbow(string, seed) {
-  return lolcat
-    .rainbow(
+  return lolcat.rainbow(
       function (char, color) {
         char = $.terminal.escape_brackets(char);
         return `[[;${hex(color)};]${char}]`;
       },
       string,
       seed
-    )
-    .join("\n");
+    ).join("\n");
 }
 
-function print_dirs() {
-  term.echo(
-    dirs
-      .map((dir) => {
-        return `<blue class="directory">${dir}</blue>`;
-      })
-      .join("\n")
-  );
-}
+
 
 function hex(color) {
   return (
     "#" +
-    [color.red, color.green, color.blue]
-      .map((n) => {
+    [color.red, color.green, color.blue].map((n) => {
         return n.toString(16).padStart(2, "0");
-      })
-      .join("")
+      }).join("")
   );
 }
 
@@ -219,11 +255,9 @@ term.pause();
 
 function ready() {
   const seed = rand(256);
-  term
-    .echo(() => {
+  term.echo(() => {
       const introduction = rainbow(render("Desmynn's Portfolio"), seed);
 
       return `${introduction} Welcome to my portfolio\n`;
-    })
-    .resume();
+    }).resume();
 }
