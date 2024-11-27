@@ -5,7 +5,7 @@ const user = "guest";
 const server = "http://localhost:5500/";
 
 function prompt() {
-  return `<green>${user}@${server}</green>:<blue>${cwd}</blue>$ `;
+  return `\n<green>${user}@${server}</green>:<blue>${cwd}</blue>$ `;
 }
 const formatter = new Intl.ListFormat("en", {
   style: "long",
@@ -15,12 +15,15 @@ const formatter = new Intl.ListFormat("en", {
 const root = "~";
 let cwd = root;
 
+
+
+
 const directories = {
   education: [
     "",
     "<pink>Education</pink>",
-    '*<a href="https://www.logan.edu/"> Logan University </a> 2022-2024 <pink> Bachelor of Science in Human Biology </pink>',
-    '*<a href="https://www.appacademy.io/"> App Academy </a> May 2024 - December 2024 <pink> Certification in Software Engineering </pink>',
+    '<a href="https://www.logan.edu/"> Logan University </a> Septeber 2022 - December 2024 <pink> Bachelor of Science in Human Biology Grade: Senior</pink>',
+    '<a href="https://www.appacademy.io/"> App Academy </a> May 2024 - December 2024 <pink> Certification in Software Engineering Grade: Senior </pink>',
     "",
   ],
 
@@ -37,40 +40,47 @@ const directories = {
     "",
     "<pink>My Personal Projects</pink>",
     [
-      ["South Park Quote Machine", "https://github.com/MynnTapp/South-Park-Quote-Machine", "Quote Machine that generates South Park quotes"],
-      ["React Calculator", "https://github.com/MynnTapp/my-react-calculator", "a calulator made using React"],
-      ["Markdown Previewer", "https://github.com/MynnTapp/Markdown-Previewer", "a markdown previewer to turn code into markdown"],
-      ["25 + 5 timer", "https://github.com/MynnTapp/my-25-5-timer", "a kind of pomodoro timer that is used for studying"],
-      ["My Keyboard Drum set", "https://github.com/MynnTapp/Drum-Machine", "A drum set you can play with your keyboard"],
+      ["South Park Quote Machine", "https://github.com/MynnTapp/South-Park-Quote-Machine", "An interactive application that generates random quotes from the TV show South Park. Built to demonstrate API integration and dynamic rendering."],
+      ["React Calculator", "https://github.com/MynnTapp/my-react-calculator", "A functional calculator built using React, featuring a clean user interface and the ability to perform basic arithmetic operations."],
+      ["Markdown Previewer", "https://github.com/MynnTapp/Markdown-Previewer", "A live markdown editor that converts code into styled markdown text in real-time. Ideal for writing and previewing markdown documents."],
+      ["25 + 5 timer", "https://github.com/MynnTapp/my-25-5-timer", "A customizable Pomodoro timer designed for productivity and study sessions. Includes adjustable work and break intervals."],
+      ["My Keyboard Drum set", "https://github.com/MynnTapp/Drum-Machine", "A virtual drum set playable using your keyboard keys. Offers an engaging way to make music while showcasing JavaScript event handling and sound integration."],
     ].map(([name, url, description = ""]) => {
-      return `<a href="${url}"> ${name} </a> &mdash; <pink> ${description} </pink>`;
+      return `\n<a href="${url}" target="_blank"> ${name} </a> &mdash; <pink> ${description} </pink>`;
     }),
   ].flat(),
   skills: [
-   [["Python", "Javascript", "SQL", "HTML", "CSS"],
-    ["React", "Redux", "Postgres SQL", "JQuery", "Bootstrap", "SASS", "Flask"],
-    ["Linux", "Git"],
-  ].map(([languages, libraries, tools], i) => {
-  return `Coding languages I know are: <pink>${languages}</pink>`
+   ["<blue>Languages:</blue>\nPython\nJavascript\nSQL\nHTML\nCSS", "<blue>\nLibraries:</blue>\nReact\nRedux\nPostgres\nSQL\nJQuery\nBootstrap\nSASS\nFlask", "<blue>\nTools:</blue>\nLinux\nGit"]].map(([languages, libraries, tools = ""]) => {
+  return `<pink>${languages}${libraries}${tools}</pink>`
   }),
-  ].flat(),
-  resume: [`file:///C:/Users/Desmy/Downloads/Desmynn_Tappin_Resume%20(1).pdf`].map((resume, i) => {
+  
+  resume: ["https://olive-helge-94.tiiny.site"].map((resume, i) => {
     return `This is my resume: <a href="${resume}"><pink>${resume}</pink></a>`
   }),
 
   aboutMe:
-    ["Welcome to my personal portfolio! I am a dedicated and driven software engineer, transitioning from a path in physician science to a career where I can channel my problem-solving skills into developing innovative software solutions. This portfolio showcases my journey, skills, and projects, reflecting my passion for tackling complex challenges and creating meaningful impact through code. My diverse background enables me to approach problem-solving with unique perspectives, and I aim to leverage my skills to drive positive change across industries—healthcare and beyond.Feel free to explore my projects and connect with me as I continue to grow in this exciting field!"].map((aboutMe) => {return `<pink>${aboutMe}</pink>`}),
+    [["Welcome to my personal portfolio! My name is Desmynn Tappin and I am a dedicated and driven software engineer, transitioning from a path of a Physician-Scientist to a career where I can channel my problem-solving skills into developing innovative software solutions. This portfolio showcases my journey, skills, and projects, reflecting my passion for tackling complex challenges and creating meaningful impact through code. My diverse background enables me to approach problem-solving with unique perspectives, and I aim to leverage my skills to drive positive change across industries and beyond. Feel free to explore my projects and connect with me as I continue to grow in this exciting field!", "Little Rock, Arkansas", 20]].map(([aboutMe, location, age]) => {return `<pink>${aboutMe}\n\n\nLocation: ${location}\n\n\nAge: ${age}</pink>`}),
 
-  contact_Info: ["501-697-6028", "DesmynnMJC@gmail.com", "https://www.linkedin.com/in/desmynn-j-tappin-975822233/", "https://github.com/MynnTapp"].map(([phoneNumber, email, LinkedIn, Github]) => {
-    return `<pink>my phoneNumber is: ${phoneNumber}\n my email is: ${email}\n
-    my LinkedIn: ${LinkedIn}\n my GitHub: ${Github} <pink>`;
+  contact_Info: [["501-697-6028", "DesmynnMJC@gmail.com", "https://www.linkedin.com/in/desmynn-j-tappin-975822233/", "https://github.com/MynnTapp"]].map(([phoneNumber, email, LinkedIn, Github]) => {
+    return `<pink>\nmy phoneNumber is: ${phoneNumber}\nmy email is: ${email}\nmy LinkedIn: <a href="https://www.linkedin.com/in/desmynn-j-tappin-975822233/" target="_blank">${LinkedIn}</a>\nmy GitHub: ${Github} </pink>`;
   }),
+};
+
+
+
+
+$.terminal.xml_formatter.tags.green = (attrs) => {
+  return `[[;#44D544;;${attrs.class}]`;
 };
 
 const url = "https://v2.jokeapi.dev/joke/Programming";
 
+const files = [
+  '\n1. use the command "cd" along with any of the directories go inside one ex: "cd resume"',
+  '\n2. when you get into the directory you want, use the command "ls" to see information about me in each directory',
+];
 
-//ISSUE/////////////////////////////////////////////////////////////////////////////
+
 function print_dirs() {
   term.echo(
     Object.keys(directories).map((dir) => {
@@ -78,7 +88,7 @@ function print_dirs() {
       }).join("\n")
   );
 }
-//////////////////////////////////////////////////////////////////
+
 const commands = {
   help() {
     term.echo(`Available commands: ${help}`);
@@ -132,6 +142,7 @@ const commands = {
       this.echo(directories[dir].join("\n"));
     }
   },
+  
 
   async joke() {
     const res = await fetch(url);
@@ -166,7 +177,19 @@ const commands = {
       "",
     ].join("\n");
   },
+
+  home() {
+    term.echo(Object.keys(directories).map(dir => {
+        return `<blue class="directory">${dir}</blue>`;
+    }).join('\n'));
+    term.echo(files.map(file => {
+        return `<green class="command">${file}</green>`;
+    }).join('\n'));
+ }
 };
+
+
+
 
 const command_list = Object.keys(commands);
 const clearTerminal = ["clear"].concat(Object.keys(commands));
@@ -257,7 +280,6 @@ function ready() {
   const seed = rand(256);
   term.echo(() => {
       const introduction = rainbow(render("Desmynn's Portfolio"), seed);
-
-      return `${introduction} Welcome to my portfolio\n`;
+      return `${introduction} Welcome to my portfolio!\n\n\ntype <pink>"home"</pink> into the terminal to get started\n\n`;
     }).resume();
 }
