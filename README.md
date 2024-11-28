@@ -60,6 +60,6 @@ project/ ├── index.html # Main entry point for the portfolio ├── my-
    cd my-portfolio-terminal
    ```
 3. Open index.html in your favorite browser.
-   ### click start live server at the bottom of vs code to start server 
+   - click start live server at the bottom of vs code to start server 
 
 
