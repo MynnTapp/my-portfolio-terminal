@@ -1,4 +1,6 @@
 const font = "Dancing Font";
+
+$.terminal.xml_formatter = $.terminal.xml_formatter || { tags: {} };
 figlet.defaults({ fontPath: "https://unpkg.com/figlet/fonts/" });
 figlet.preloadFonts([font], ready);
 const user = "guest";
